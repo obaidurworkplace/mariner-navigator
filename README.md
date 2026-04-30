@@ -1,5 +1,20 @@
 # Mariner Navigator — Database Setup Guide
 
+## Project Overview
+
+**Mariner Innovations** is a Canadian management and technology consulting firm. This database is the core data store for the **RFP Automation Platform** — a system that matches consultants from the firm's roster to incoming RFP (Request for Proposal) opportunities using AI-powered semantic search.
+
+When an RFP arrives, AI agents query Azure AI Search (backed by this database) to surface the best-matched consultants based on skills, certifications, project history, and availability. The Resourcing team then uses the web application to review candidates and assemble a submission team.
+
+Two systems read from this database:
+
+| System | How it connects | Use |
+|---|---|---|
+| **Web application** | Direct SQL via Managed Identity | Roster views, availability tracking, filtered searches |
+| **Azure AI Search** | SQL change tracking via `svc-ai-search` user | Semantic candidate matching for AI agents |
+
+---
+
 ## Schema File: `consultant_resume_db_schema.sql`
 
 This file is the single executable T-SQL script that builds the entire database from scratch. Run it once against a new, empty `db-mpi-navigator` database.
